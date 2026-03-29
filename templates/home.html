@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YourBroTomato</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --red-main: #c62828;
+            --red-dark: #8e0000;
+            --red-light: #ff7043;
+            --bg: #fff7f2;
+            --green: #2e7d32;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #ffe0e0 0, #fff7f2 40%, #fbe9e7 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--red-main), var(--red-dark));
+            color: #fff;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ffccbc 0, #ff7043 40%, #c62828 100%);
+            border: 3px solid #fff;
+            position: relative;
+        }
+
+        .logo-icon::after {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 18px;
+            border-radius: 50% 50% 0 0;
+            background: var(--green);
+        }
+
+        .logo-text-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo-text-sub {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            max-width: 900px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            overflow: hidden;
+        }
+
+        .card-left {
+            padding: 28px 32px;
+        }
+
+        .card-right {
+            background: linear-gradient(160deg, #ffebee, #ffccbc);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .card-right::before {
+            content: "";
+            position: absolute;
+            inset: 15% 5% auto auto;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.9) 0, transparent 55%),
+                radial-gradient(circle at 80% 40%, rgba(255,255,255,0.7) 0, transparent 60%);
+            opacity: 0.7;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--red-dark);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .title-main {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--red-main);
+            margin-bottom: 10px;
+        }
+
+        .desc {
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.5;
+            margin-bottom: 22px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .file-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .file-input-wrapper {
+            border: 2px dashed rgba(198,40,40,0.4);
+            border-radius: 12px;
+            padding: 18px;
+            background: #fff7f4;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .file-input-wrapper:hover {
+            border-color: var(--red-main);
+            background: #ffede7;
+        }
+
+        input[type="file"] {
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .hint {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        button {
+            margin-top: 6px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, var(--red-main), var(--red-light));
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(198,40,40,0.4);
+            transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.1s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(198,40,40,0.5);
+            filter: brightness(1.03);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(198,40,40,0.4);
+        }
+
+        .preview-box {
+            margin-top: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+            display: none;
+        }
+
+        .preview-box img {
+            width: 100%;
+            display: block;
+        }
+
+        .right-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--red-dark);
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .right-text {
+            font-size: 0.9rem;
+            color: #5d4037;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        .right-footer {
+            font-size: 0.8rem;
+            color: #6d4c41;
+            margin-top: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .field-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .field-row span {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0 18px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        @media (max-width: 800px) {
+            .card {
+                grid-template-columns: 1fr;
+            }
+            .card-right {
+                order: -1;
+            }
+            header {
+                padding: 16px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-icon"></div>
+        <div>
+            <div class="logo-text-title">YourBroTomato</div>
+            <div class="logo-text-sub">Smart tomato leafs image analysis</div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="card">
+        <div class="card-left">
+            <div class="tagline">Upload & analyze</div>
+            <div class="title-main">Upload a photo, and the algorithm will take care of the rest</div>
+            <p class="desc">
+                Select a photo of your friend's leaf, and the model will analyze it:
+                it will detect any issues with the crop, assess its condition, and return the results in seconds.
+            </p>
+
+            <form id="upload-form" method="POST" action="/predict" enctype="multipart/form-data">
+                <label class="file-label" for="image">Pick a photo:</label>
+
+                <label class="file-input-wrapper">
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <span class="hint">Supports JPG. </span>
+                </label>
+
+                <div class="field-row">
+                    <span>Once submitted, the image will be processed by the model</span>
+                </div>
+
+                <button type="submit">ANALYZE!</button>
+
+                <div class="preview-box" id="preview-box">
+                    <img id="preview-img" alt="Podgląd wybranego zdjęcia">
+                </div>
+            </form>
+        </div>
+
+        <div class="card-right">
+            <div>
+                <div class="right-title"></div>
+                <p class="right-text">
+                </p>
+            </div>
+            <div class="right-footer">
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    YourBroTomato &mdash; Designed by Michał Żądło
+</footer>
+
+<script>
+    const input = document.getElementById('image');
+    const previewBox = document.getElementById('preview-box');
+    const previewImg = document.getElementById('preview-img');
+
+    input.addEventListener('change', function () {
+        const file = this.files[0];
+        if (!file) {
+            previewBox.style.display = 'none';
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            previewImg.src = e.target.result;
+            previewBox.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+
+</body>
+</html>
