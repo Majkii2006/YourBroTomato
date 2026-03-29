@@ -48,7 +48,7 @@ The model can detect the following conditions:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/Majkii2006/YourBroTomato.git
 ```
 
 2. Install dependencies:
@@ -60,7 +60,7 @@ pip install -r requirements.txt
 3. Run the model:
 
 ```bash
-python main.py
+python app.py
 ```
 
 ---
